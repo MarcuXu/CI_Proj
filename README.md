@@ -4,7 +4,7 @@
 
 ```matlab
 % Test For function 2
->>> test_ci(2) 
+>>> run_ci(2) 
 % Test For function 1, 2, 3
->>> test_ci([1 2 3]) 
+>>> run_ci([1 2 3]) 
 ```
