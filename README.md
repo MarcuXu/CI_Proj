@@ -58,9 +58,9 @@ run_ci([1 3 5])  % Test functions 1, 3, and 5
 You can set up the below custom configuration:
 ```matlab
 config = struct(...
-    'Ns', [50 500 5000], ...         % Custom sample sizes
+    'Sz', [50 500 5000], ...         % Custom sample sizes
     'alphas', [0.1 0.05 0.01], ...   % Custom confidence levels
-    'nrepeats', 5000 ...             % Custom iterations
+    'repeats_n', 5000 ...             % Custom iterations
 );
 run_ci([1 2], config)
 ```
@@ -86,15 +86,26 @@ run_ci([1 2], config)
 
 The framework outputs test results in the following format:
 ```
-Function 1:
-=====================================================
+Function 5 results:
+
 Running Bernoulli Distribution Tests:
 =====================================
+
 Test case: balanced (theta = 0.50, alphas=[0.25 0.10 0.05])
-N:    10  fraction missed: 0.001
-N:   100  fraction missed: 0.000
-N:  1000  fraction missed: 0.000
-N: 10000  fraction missed: 0.000
+Sample sizes:    10	 missed fraction: 0.079
+Sample sizes:   100	 missed fraction: 0.090
+Sample sizes:  1000	 missed fraction: 0.097
+Sample sizes: 10000	 missed fraction: 0.104
+
+Sample sizes:    10	 missed fraction: 0.079
+Sample sizes:   100	 missed fraction: 0.090
+Sample sizes:  1000	 missed fraction: 0.097
+Sample sizes: 10000	 missed fraction: 0.104
+
+Sample sizes:    10	 missed fraction: 0.079
+Sample sizes:   100	 missed fraction: 0.090
+Sample sizes:  1000	 missed fraction: 0.097
+Sample sizes: 10000	 missed fraction: 0.104
 ```
 
 ### Interpreting Results
