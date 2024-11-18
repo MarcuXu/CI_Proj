@@ -5,9 +5,9 @@ function run_ci(functions, varargin)
     
     % Test configuration parameters
     config = struct(...
-        'Ns', [10 100 1000 10000], ...       % Sample sizes to test
+        'Sz', [10 100 1000 10000], ...       % Sample sizes to test
         'alphas', [0.25 0.1 0.05], ... % Confidence levels
-        'nrepeats', 10000 ...          % Number of Monte Carlo iterations
+        'repeats_n', 10000 ...          % Number of Monte Carlo iterations
     );
     
     % Test cases definition
@@ -62,20 +62,20 @@ function run_bernoulli_tests(func, config, bernoulli_cases)
             bernoulli_cases(i).description, bernoulli_cases(i).theta, ...
             config.alphas(1), config.alphas(2), config.alphas(3));
         
-        A = zeros(config.nrepeats, 1);
-        B = zeros(config.nrepeats, 1);
+        A = zeros(config.repeats_n, 1);
+        B = zeros(config.repeats_n, 1);
         fraction = [];
         
-        for N = config.Ns
-            for repeat = 1:config.nrepeats
+        for N = config.Sz
+            for repeat = 1:config.repeats_n
                 X = generate_bernoulli_samples(N, bernoulli_cases(i).theta);
                 [A(repeat), B(repeat)] = ci(X, func);
             end
             fraction = [fraction; sum((A <= bernoulli_cases(i).theta) & ...
-                (bernoulli_cases(i).theta <= B)) / config.nrepeats];
+                (bernoulli_cases(i).theta <= B)) / config.repeats_n];
         end
         
-        report_results(config.alphas, config.Ns, fraction);
+        report_results(config.alphas, config.Sz, fraction);
     end
 end
 
@@ -89,21 +89,21 @@ function run_uniform_tests(func, config, uniform_cases)
             uniform_cases(i).a, uniform_cases(i).b, ...
             config.alphas(1), config.alphas(2), config.alphas(3));
         
-        A = zeros(config.nrepeats, 1);
-        B = zeros(config.nrepeats, 1);
+        A = zeros(config.repeats_n, 1);
+        B = zeros(config.repeats_n, 1);
         fraction = [];
         true_mean = (uniform_cases(i).a + uniform_cases(i).b) / 2;
         
-        for N = config.Ns
-            for repeat = 1:config.nrepeats
+        for N = config.Sz
+            for repeat = 1:config.repeats_n
                 X = generate_uniform_samples(N, uniform_cases(i).a, uniform_cases(i).b);
                 [A(repeat), B(repeat)] = ci(X, func);
             end
             fraction = [fraction; sum((A <= true_mean) & ...
-                (true_mean <= B)) / config.nrepeats];
+                (true_mean <= B)) / config.repeats_n];
         end
         
-        report_results(config.alphas, config.Ns, fraction);
+        report_results(config.alphas, config.Sz, fraction);
     end
 end
 
@@ -117,21 +117,21 @@ function run_normal_tests(func, config, normal_cases)
             normal_cases(i).mu, normal_cases(i).sigma, ...
             config.alphas(1), config.alphas(2), config.alphas(3));
         
-        A = zeros(config.nrepeats, 1);
-        B = zeros(config.nrepeats, 1);
+        A = zeros(config.repeats_n, 1);
+        B = zeros(config.repeats_n, 1);
         fraction = [];
         
-        for N = config.Ns
-            for repeat = 1:config.nrepeats
+        for N = config.Sz
+            for repeat = 1:config.repeats_n
                 X = generate_normal_samples(N, normal_cases(i).mu, normal_cases(i).sigma);
                 X = max(0, min(1, X));
                 [A(repeat), B(repeat)] = ci(X, func);
             end
             fraction = [fraction; sum((A <= normal_cases(i).mu) & ...
-                (normal_cases(i).mu <= B)) / config.nrepeats];
+                (normal_cases(i).mu <= B)) / config.repeats_n];
         end
         
-        report_results(config.alphas, config.Ns, fraction);
+        report_results(config.alphas, config.Sz, fraction);
     end
 end
 
@@ -150,20 +150,20 @@ function X = generate_normal_samples(N, mu, sigma)
     X = randn(N, 1)*sigma + mu;
 end
 
-function report_results(alphas, Ns, fraction)
+function report_results(alphas, Sz, fraction)
     % Print results for each alpha
     for alpha_idx = 1:length(alphas)
-        % Print results for each sample size N
-        for i = 1:length(Ns)
-            fprintf('N: %5d\t fraction missed: %1.3f\n', ...
-                Ns(i), 1 - fraction(i));
+        % Print results for each sample size
+        for i = 1:length(Sz)
+            fprintf('Sample sizes: %5d\t missed fraction: %1.3f\n', ...
+                Sz(i), 1 - fraction(i));
         end
-        fprintf('\n');  % Add space between alpha groups
+        fprintf('\n');
     end
     fprintf('-----------------------------------------------------\n');
 end
 
 function print_header(func)
-    fprintf('\nFunction %d:\n', func);
-    fprintf('=====================================================\n');
+    fprintf('\nFunction %d results:\n', func);
+    % fprintf('=====================================================\n');
 end
