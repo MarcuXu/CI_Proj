@@ -51,9 +51,6 @@ function run_function_tests(func, config, test_cases)
     
     % Run Normal tests
     run_normal_tests(func, config, test_cases.normal);
-    
-    % Print function footer
-    % print_footer(func);
 end
 
 function run_bernoulli_tests(func, config, bernoulli_cases)
@@ -170,7 +167,3 @@ function print_header(func)
     fprintf('\nFunction %d:\n', func);
     fprintf('=====================================================\n');
 end
-
-% function print_footer(func)
-%     fprintf('\n----------------ABOVE IS FUNC %d------------------\n\n', func);
-% end
