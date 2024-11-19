@@ -122,6 +122,22 @@ Sample sizes: 10000	 missed fraction: 0.104
    - Exact: Similar fraction missed across all N
    - Asymptotic: Higher fraction missed for small N, converging as N increases
 
+### Brief Description of the Function Validity Process
+
+1. **Generate Confidence Intervals**:
+    * Perform $10,000$ simulations for each of the 10 functions, testing across sample sizes ($N = 10, 100, 1000, 10,000$) and distributions (Bernoulli, Uniform, Normal).
+2. **Initial Validity Check**:
+    * Calculate the fraction of intervals that fail to include the true mean (missed fraction).
+    * If the missed fraction is less than or equal to $\alpha = 0.25$, the function is **valid**; otherwise, it is **invalid**.
+3. **Determine Confidence Level**:
+    * For valid functions, compare the missed fraction to smaller $\alpha$ values ($0.1, 0.05$) to determine the highest valid confidence level.
+4. **Assess Validity Across Sizes**:
+    * Evaluate missed fractions across sample sizes to classify validity as:
+        * **Exact**: Consistent validity for all sizes.
+        * **Asymptotic**: Validity holds only for large sizes.
+5. **Report Results**:
+    * Summarize the validity, confidence level, and classification (Exact or Asymptotic) for each function.
+
 ## Contributing
 
 1. Fork the repository

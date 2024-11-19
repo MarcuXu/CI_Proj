@@ -148,7 +148,6 @@ for i = 1:numel(normal_cases)
         fraction = [fraction; sum(valid_intervals) / config.repeats_n];
     end
 
-    % Report results
     report_results(config.alphas, config.Sz, fraction);
 end
 end
@@ -179,7 +178,7 @@ for alpha_idx = 1:length(alphas)
     end
     fprintf('\n');
 end
-fprintf('-----------------------------------------------------\n');
+fprintf('--------------------------------------------\n');
 end
 
 function print_header(func)
