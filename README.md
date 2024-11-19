@@ -27,18 +27,6 @@ This framework allows you to test confidence interval functions against multiple
   - Boundary regions in Uniform ([0, 0.05], [0.95, 1])
   - Various variance scales in Normal (σ = 0.1, 0.9, 1)
 
-## Installation
-
-1. Clone the repository:
-```bash
-git clone https://github.com/MarcuXu/CI_Proj.git
-```
-
-2. Add the framework directory to your MATLAB path:
-```matlab
-addpath('/path/to/ci-testing-framework')
-```
-
 ## Usage
 
 ### Basic Usage
@@ -96,16 +84,6 @@ Sample sizes:    10	 missed fraction: 0.079
 Sample sizes:   100	 missed fraction: 0.090
 Sample sizes:  1000	 missed fraction: 0.097
 Sample sizes: 10000	 missed fraction: 0.104
-
-Sample sizes:    10	 missed fraction: 0.079
-Sample sizes:   100	 missed fraction: 0.090
-Sample sizes:  1000	 missed fraction: 0.097
-Sample sizes: 10000	 missed fraction: 0.104
-
-Sample sizes:    10	 missed fraction: 0.079
-Sample sizes:   100	 missed fraction: 0.090
-Sample sizes:  1000	 missed fraction: 0.097
-Sample sizes: 10000	 missed fraction: 0.104
 ```
 
 ### Interpreting Results
@@ -124,19 +102,14 @@ Sample sizes: 10000	 missed fraction: 0.104
 
 ### Brief Description of the Function Validity Process
 
-1. **Generate Confidence Intervals**:
-    * Perform $10,000$ simulations for each of the 10 functions, testing across sample sizes ($N = 10, 100, 1000, 10,000$) and distributions (Bernoulli, Uniform, Normal).
-2. **Initial Validity Check**:
-    * Calculate the fraction of intervals that fail to include the true mean (missed fraction).
-    * If the missed fraction is less than or equal to $\alpha = 0.25$, the function is **valid**; otherwise, it is **invalid**.
-3. **Determine Confidence Level**:
-    * For valid functions, compare the missed fraction to smaller $\alpha$ values ($0.1, 0.05$) to determine the highest valid confidence level.
+1. **Generate Confidence Intervals**: Perform $10,000$ simulations for each of the 10 functions, testing across sample sizes ($N = 10, 100, 1000, 10,000$) and distributions (Bernoulli, Uniform, Normal).
+2. **Initial Validity Check**: Calculate the fraction of intervals that fail to include the true mean (missed fraction). If the missed fraction is less than or equal to $\alpha$, the function is **valid**; otherwise, it is **invalid**. We set up $\alpha = 0.25$ here empirically.
+3. **Determine Confidence Level**: For valid functions, compare the missed fraction to smaller $\alpha$ values (like $0.1, 0.05, 0.01$) to determine the highest valid confidence level.
 4. **Assess Validity Across Sizes**:
-    * Evaluate missed fractions across sample sizes to classify validity as:
+    Evaluate missed fractions across sample sizes to classify validity as:
         * **Exact**: Consistent validity for all sizes.
-        * **Asymptotic**: Validity holds only for large sizes.
-5. **Report Results**:
-    * Summarize the validity, confidence level, and classification (Exact or Asymptotic) for each function.
+        * **Asymptotic**: Validity holds BETTER for large sizes.
+5. **Report Results**: Summarize the validity, confidence level, and classification (Exact/Asymptotic) for each function.
 
 ## Contributing
 
@@ -149,14 +122,3 @@ Sample sizes: 10000	 missed fraction: 0.104
 ## License
 
 This project is licensed under the MIT License - see the [LICENSE.md](ci-testing-license.md) file for details.
-
-## Acknowledgments
-
-- Original project concept by Linwei Wang
-- Based on Quantitative Foundations course project
-- Extended and improved by [MarcuXu]
-
-## Contact
-
-Your Email - marcuxxu@gmail.com
-Project Link: https://github.com/MarcuXu/CI_Proj

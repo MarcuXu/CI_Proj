@@ -39,7 +39,7 @@ end
 end
 
 function run_function_tests(func, config, test_cases)
-% Print function header
+
 print_header(func);
 
 % Run Bernoulli tests
